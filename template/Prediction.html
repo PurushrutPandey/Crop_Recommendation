@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="page-card">
+            <div class="page-header">
+                <div>
+                    <h1>Your Crop Recommendation</h1>
+                    <p>The model has evaluated your soil inputs and selected the best crop for your field.</p>
+                </div>
+                <a href="/Predict" class="secondary-button">Try Again</a>
+            </div>
+            <div class="section-content">
+                <div class="result-panel">
+                    <div class="result-result">
+                        <p class="prediction-title">According to your soil nutrients</p>
+                        <p class="prediction-value">{{ prediction }}</p>
+                    </div>
+                    {% if crop_image %}
+                        <img src="{{ url_for('static', filename='crops/' + crop_image) }}" alt="{{ prediction }}" class="crop-image" onerror="this.style.display='none'; document.getElementById('placeholder').style.display='block';">
+                        <div id="placeholder" class="placeholder-box" style="display:none;">
+                            Crop image not found. Please add the image file <strong>{{ crop_image }}</strong> to <code>static/crops/</code>.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
